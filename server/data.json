@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "title": "finish nodejs setup",
+      "status": true,
+      "tag": ["school", "personal"],
+      "date": "24th October 2024"
+    },
+    {
+      "title": "finish nodejs setup",
+      "status": true,
+      "tag": ["school", "personal"],
+      "date": "24th October 2024"
+    }
+  ]
+}
