@@ -6,10 +6,12 @@ const allowedOrigin = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
 app.use(express.json());
 app.use((req, res, next) => {
   const requestOrigin = req.headers.origin;
-  if (!requestOrigin || requestOrigin !== allowedOrigin) {
-    return res.status(403).json({ mssg: "origin not allowed" });
+  if (requestOrigin && requestOrigin !== allowedOrigin) {
+    return res.status(403).json({ message: "origin not allowed" });
   }
-  res.header("Access-Control-Allow-Origin", requestOrigin);
+  if (requestOrigin) {
+    res.header("Access-Control-Allow-Origin", requestOrigin);
+  }
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") {

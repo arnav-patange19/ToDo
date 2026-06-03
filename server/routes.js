@@ -26,7 +26,7 @@ router.get("/todos", (req, res) => {
 router.post("/todos", (req, res) => {
   const { title, status, tag, date } = req.body ?? {};
   if (!title || typeof title !== "string" || !title.trim()) {
-    return res.status(400).json({ mssg: "title is required" });
+    return res.status(400).json({ message: "title is required" });
   }
 
   const newToDo = {
@@ -47,10 +47,10 @@ router.delete("/todos/:id", (req, res) => {
   allToDos = allToDos.filter((todo) => todo.id !== id);
 
   if (beforeLength === allToDos.length) {
-    return res.status(404).json({ mssg: "todo not found" });
+    return res.status(404).json({ message: "todo not found" });
   }
 
-  res.status(200).json({ mssg: "todo deleted" });
+  res.status(200).json({ message: "todo deleted" });
 });
 
 // Put todos/:id
@@ -59,7 +59,7 @@ router.put("/todos/:id", (req, res) => {
   const todoIndex = allToDos.findIndex((todo) => todo.id === id);
 
   if (todoIndex === -1) {
-    return res.status(404).json({ mssg: "todo not found" });
+    return res.status(404).json({ message: "todo not found" });
   }
 
   const currentTodo = allToDos[todoIndex];
@@ -70,7 +70,7 @@ router.put("/todos/:id", (req, res) => {
   };
 
   if (typeof updatedTodo.title !== "string" || !updatedTodo.title.trim()) {
-    return res.status(400).json({ mssg: "title is required" });
+    return res.status(400).json({ message: "title is required" });
   }
 
   updatedTodo.title = updatedTodo.title.trim();
