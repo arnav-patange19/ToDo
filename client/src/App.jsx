@@ -31,47 +31,61 @@ export default function App() {
     }
 
     setError("");
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: cleanTitle, status: false }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      setError(data.mssg || "Failed to add todo.");
-      return;
-    }
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: cleanTitle, status: false }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.mssg || "Failed to add todo.");
+        return;
+      }
 
-    setTodos((prev) => [...prev, data.todo]);
-    setTitle("");
+      setTodos((prev) => [...prev, data.todo]);
+      setTitle("");
+    } catch {
+      setError("Unable to add todo.");
+    }
   }
 
   async function toggleTodo(todo) {
     setError("");
-    const res = await fetch(`${apiUrl}/${todo.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: !todo.status }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      setError(data.mssg || "Failed to update todo.");
-      return;
-    }
+    try {
+      const res = await fetch(`${apiUrl}/${todo.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: !todo.status }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.mssg || "Failed to update todo.");
+        return;
+      }
 
-    setTodos((prev) => prev.map((item) => (item.id === todo.id ? data.todo : item)));
+      setTodos((prev) =>
+        prev.map((item) => (item.id === todo.id ? data.todo : item))
+      );
+    } catch {
+      setError("Unable to update todo.");
+    }
   }
 
   async function removeTodo(id) {
     setError("");
-    const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
-    const data = await res.json();
-    if (!res.ok) {
-      setError(data.mssg || "Failed to delete todo.");
-      return;
-    }
+    try {
+      const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.mssg || "Failed to delete todo.");
+        return;
+      }
 
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    } catch {
+      setError("Unable to delete todo.");
+    }
   }
 
   return (

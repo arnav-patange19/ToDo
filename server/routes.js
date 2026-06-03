@@ -17,6 +17,7 @@ let allToDos = [
     date: "24th October 2024",
   },
 ];
+let nextTodoId = allToDos.reduce((maxId, todo) => Math.max(maxId, todo.id), 0) + 1;
 // Get todos/
 router.get("/todos", (req, res) => {
   res.status(200).json({ todos: allToDos });
@@ -29,7 +30,7 @@ router.post("/todos", (req, res) => {
   }
 
   const newToDo = {
-    id: Date.now(),
+    id: nextTodoId++,
     title: title.trim(),
     status: typeof status === "boolean" ? status : false,
     tag: Array.isArray(tag) ? tag : [],
