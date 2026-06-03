@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
+const apiUrl = `${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/todos`;
+
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const apiUrl = "http://localhost:5000/api/todos";
 
   useEffect(() => {
     async function getTodos() {

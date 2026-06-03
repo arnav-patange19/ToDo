@@ -69,11 +69,11 @@ router.put("/todos/:id", (req, res) => {
     id: currentTodo.id,
   };
 
-  if (!updatedTodo.title || !String(updatedTodo.title).trim()) {
+  if (typeof updatedTodo.title !== "string" || !updatedTodo.title.trim()) {
     return res.status(400).json({ mssg: "title is required" });
   }
 
-  updatedTodo.title = String(updatedTodo.title).trim();
+  updatedTodo.title = updatedTodo.title.trim();
   updatedTodo.status = Boolean(updatedTodo.status);
   updatedTodo.tag = Array.isArray(updatedTodo.tag) ? updatedTodo.tag : [];
   updatedTodo.date = updatedTodo.date || currentTodo.date;
