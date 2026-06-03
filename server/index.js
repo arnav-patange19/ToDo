@@ -6,6 +6,7 @@ const allowedOrigin = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
 app.use(express.json());
 app.use((req, res, next) => {
   const requestOrigin = req.headers.origin;
+  // Allow non-browser callers (no Origin header) while still enforcing browser origin checks.
   if (!requestOrigin) {
     return next();
   }
