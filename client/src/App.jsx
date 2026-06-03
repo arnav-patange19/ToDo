@@ -40,7 +40,7 @@ export default function App() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.message || data.mssg || "Failed to add todo.");
+        setError(data.message || "Failed to add todo.");
         return;
       }
 
@@ -61,7 +61,7 @@ export default function App() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.message || data.mssg || "Failed to update todo.");
+        setError(data.message || "Failed to update todo.");
         return;
       }
 
@@ -79,7 +79,7 @@ export default function App() {
       const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.message || data.mssg || "Failed to delete todo.");
+        setError(data.message || "Failed to delete todo.");
         return;
       }
 
